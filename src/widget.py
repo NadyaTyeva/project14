@@ -11,13 +11,14 @@ def mask_account_card(card_or_account: Union[str]) -> str:
         from masks import get_mask_card_number
         return card_or_account[:-16] + " " + get_mask_card_number(card_or_account[-16:])
 
-print(mask_account_card("Visa Platinum 7000792289606361"))
+
+print(mask_account_card("Visa Gold 5999414228426353"))
 
 
 def get_date(date: Union[str]) -> str:
     ''' Функция принимает строку с датой и возвращает в формате "ДД.ММ.ГГГГ"'''
-   return date[8:10] + "." + date [5:7] + "." + date [:4]
+    return date[8:10] + "." + date[5:7] + "." + date[:4]
+
 
 date = input()
 print(get_date(date))
-

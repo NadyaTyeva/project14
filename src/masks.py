@@ -6,14 +6,6 @@ def get_mask_card_number(card_or_account: Union[str, int]) -> str:
     return f"{str(card_or_account)[:4]} {str(card_or_account)[4:6]}** **** {str(card_or_account)[12:]} "
 
 
-#card_number = input()
-#print(get_mask_card_number(card_number))
-
-
 def get_mask_account(card_or_account: Union[str, int]) -> str:
     """Функция маскирует номер банковского счета."""
     return f"**{str(card_or_account)[-4:]}"
-
-
-#account_number = input()
-#print(get_mask_account(account_number))
