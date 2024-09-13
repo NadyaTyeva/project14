@@ -1,3 +1,5 @@
+from typing import Any
+
 list_of_dictionaries = [
     {'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'},
     {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'},
@@ -6,22 +8,18 @@ list_of_dictionaries = [
 ]
 
 
-def filter_by_state(list_of_dictionaries: list[dict[str, any]], state: str = "EXECUTED") -> list[dict[str, any]]:
-   '''Функция принимает список словарей и опционально значение state
-   для ключа и возвращает новый список словарей, 
-   содержащий только те словари, 
-   у которых state соответствует указанному значению.'''
-   #list_state = []
-   #for dictionary in list_of_dictionaries:
-       #if dictionary.get('state') == state:
-          # list_state.append(dictionary)
-   return [dictionary for dictionary in list_of_dictionaries if dictionary.get('state') == state]
+def filter_by_state(list_of_dictionaries: list[dict[str, Any]], state: str = "EXECUTED") -> list[dict[str, Any]]:
+    '''Функция принимает список словарей и опционально значение state
+    для ключа и возвращает новый список словарей,
+    содержащий только те словари,
+    у которых state соответствует указанному значению.'''
+    return [dictionary for dictionary in list_of_dictionaries if dictionary.get('state') == state]
 
 
-print(filter_by_state(list_of_dictionaries, state))
+print(filter_by_state(list_of_dictionaries))
 
 
-def sort_by_date(list_of_dictionaries: list[dict[str, any]], reversed: bool = True) -> list[dict[str, any]]:
+def sort_by_date(list_of_dictionaries: list[dict[str, Any]], reversed: bool = True) -> list[dict[str, Any]]:
     '''Функция принимает список словарей и необязательный параметр, задающий порядок ортировки
     и возращает новый список, отсортированный по дате'''
     sorted_list = sorted(
