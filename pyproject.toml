@@ -19,7 +19,6 @@ mypy = "^1.11.2"
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
-
 [tool.black]
 # Максимальная длина строки
 line-length = 119
