@@ -13,16 +13,16 @@ from src.widget import mask_account_card
 
 )
 
-def test_mask_account_card(card_or_account, mask_card_or_account):
+def test_mask_account_card(number: str, expected: str) -> None:
     assert mask_account_card(card_or_account) == mask_card_or_account
 
 
 #if __name__ == '__main__':
 #  assert mask_account_card('Visa Platinum 7000792289606361') == 'Visa Platinum 7000 79** **** 6361'
 
-#@pytest.fixture
-#def base_card_or_account() -> list[float]:
-#   return 'Visa Platinum 7000792289606361'
+@pytest.fixture
+def base_card_or_account() -> list[float]:
+   return 'Visa Platinum 7000792289606361'
 
-#def test_mask_account_card(base_card_or_account):
-#  assert mask_account_card(base_card_or_account) == 'Visa Platinum 7000 79** **** 6361'
+def test_mask_account_card(base_card_or_account):
+  assert mask_account_card(base_card_or_account) == 'Visa Platinum 7000 79** **** 6361'
