@@ -1,14 +1,13 @@
 from typing import Union
-
+from src.masks import get_mask_account
+from src.masks import get_mask_card_number
 
 def mask_account_card(card_or_account: Union[str]) -> str:
     ''' Функция обрабатывает информацию как о картах, так и о счетах. '''
     if "Счет" in card_or_account:
-        from masks import get_mask_account
-        return card_or_account[:4] + get_mask_account(card_or_account[5:])
+        return card_or_account[:4] + " "+ get_mask_account(card_or_account[5:])
 
     else:
-        from masks import get_mask_card_number
         return card_or_account[:-16] + get_mask_card_number(card_or_account[-16:])
 
 
