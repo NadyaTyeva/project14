@@ -19,34 +19,41 @@ from src.widget import mask_account_card, get_date
     ]
 
 )
-
 def test_mask_account_card(card_or_account: str, mask_card_or_account: str) -> None:
     assert mask_account_card(card_or_account) == mask_card_or_account
+
 
 @pytest.fixture
 def date():
     return "2024-03-11T02:26:18.671407"
 
+
 def test_get_date(date):
     assert get_date(date) == "11.03.2024"
+
 
 @pytest.fixture
 def date_zero():
     return ""
 
-def test_get_date(date_zero):
+
+def test_get_date_zero(date_zero):
     assert get_date(date_zero) == "дата некорректна"
+
 
 @pytest.fixture
 def date_error():
     return "11.03.202"
 
-def test_get_date(date_error):
+
+def test_get_date_error(date_error):
     assert get_date(date_error) == "дата некорректна"
+
 
 @pytest.fixture
 def date_error_():
     return "2024-03-11"
+
 
 def test_get_date_(date_error_):
     assert get_date(date_error_) == "11.03.2024"

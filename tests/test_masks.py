@@ -2,6 +2,7 @@ import pytest
 
 from src.masks import get_mask_card_number, get_mask_account
 
+
 @pytest.mark.parametrize(
     "card_or_account,mask_card_or_account",
     [
@@ -10,13 +11,11 @@ from src.masks import get_mask_card_number, get_mask_account
         ("71583007", "Введите корректный номер карты"),
         ("", "Введите корректный номер карты"),
         ("4692837565682847124", "Введите корректный номер карты"),
-
     ]
-
 )
-
 def test_get_mask_card_number(card_or_account: str, mask_card_or_account: str) -> None:
     assert get_mask_card_number(card_or_account) == mask_card_or_account
+
 
 @pytest.mark.parametrize(
     "account,mask_account",
@@ -30,7 +29,5 @@ def test_get_mask_card_number(card_or_account: str, mask_card_or_account: str) -
     ]
 
 )
-
-
 def test_get_mask_account(account: str, mask_account: str) -> None:
     assert get_mask_account(account) == mask_account
