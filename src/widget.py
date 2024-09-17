@@ -27,7 +27,10 @@ def mask_account_card(card_or_account: Union[str]) -> str:
 
 def get_date(date: Union[str]) -> str:
     ''' Функция принимает строку с датой и возвращает в формате "ДД.ММ.ГГГГ"'''
-    return date[8:10] + "." + date[5:7] + "." + date[:4]
+    if len(date) < 10:
+        return "дата некорректна"
+    else:
+        return date[8:10] + "." + date[5:7] + "." + date[:4]
 
 
 
