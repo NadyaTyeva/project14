@@ -1,3 +1,5 @@
+from typing import Any
+
 import pytest
 
 from src.widget import get_date, mask_account_card
@@ -28,7 +30,7 @@ def date() -> str:
     return "2024-03-11T02:26:18.671407"
 
 
-def test_get_date(date: str) -> str:
+def test_get_date(date: str) -> Any:
     assert get_date(date) == "11.03.2024"
 
 
@@ -37,7 +39,7 @@ def date_zero() -> str:
     return ""
 
 
-def test_get_date_zero(date_zero: str) -> str:
+def test_get_date_zero(date_zero: str) -> Any:
     assert get_date(date_zero) == "дата некорректна"
 
 
@@ -46,7 +48,7 @@ def date_error() -> str:
     return "11.03.202"
 
 
-def test_get_date_error(date_error: str) -> str:
+def test_get_date_error(date_error: str) -> Any:
     assert get_date(date_error) == "дата некорректна"
 
 
@@ -55,5 +57,5 @@ def date_error_() -> str:
     return "2024-03-11"
 
 
-def test_get_date_(date_error_: str) -> str:
+def test_get_date_(date_error_: str) -> Any:
     assert get_date(date_error_) == "11.03.2024"
