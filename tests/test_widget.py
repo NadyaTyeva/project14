@@ -43,3 +43,10 @@ def date_error():
 
 def test_get_date(date_error):
     assert get_date(date_error) == "дата некорректна"
+
+@pytest.fixture
+def date_error_():
+    return "2024-03-11"
+
+def test_get_date_(date_error_):
+    assert get_date(date_error_) == "11.03.2024"
