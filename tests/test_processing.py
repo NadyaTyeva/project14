@@ -6,7 +6,7 @@ from src.processing import filter_by_state, sort_by_date
 
 
 @pytest.fixture
-def filter():
+def filter() -> list[dict[str, Any]]:
     return [
        {'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'},
        {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'},
@@ -16,7 +16,7 @@ def filter():
 
 
 @pytest.fixture
-def state_canceled():
+def state_canceled() -> str:
     return 'CANCELED'
 
 
@@ -28,7 +28,7 @@ def test_filter_by_state_canceled(filter: list[dict[str, Any]], state_canceled: 
 
 
 @pytest.fixture
-def state_executed():
+def state_executed() -> str:
     return 'EXECUTED'
 
 
@@ -40,16 +40,16 @@ def test_filter_by_state_executed(filter: list[dict[str, Any]], state_executed: 
 
 
 @pytest.fixture
-def state_none():
+def state_none() -> str:
     return 'None'
 
 
-def test_filter_by_state_none(filter: list[dict[str, Any]], state_none: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def test_filter_by_state_none(filter: list[dict[str, Any]], state_none: str) -> list[dict[str, Any]]:
     assert filter_by_state(filter, state_none) == []
 
 
 @pytest.fixture
-def reversed():
+def reversed() -> bool:
     return True
 
 
@@ -62,7 +62,7 @@ def test_sort_by_date_true(filter: list[dict[str, Any]], reversed: bool) -> list
 
 
 @pytest.fixture
-def reversed_false():
+def reversed_false() -> bool:
     return False
 
 

@@ -1,6 +1,6 @@
 import pytest
 
-from src.widget import mask_account_card, get_date
+from src.widget import get_date, mask_account_card
 
 
 @pytest.mark.parametrize(
@@ -24,36 +24,36 @@ def test_mask_account_card(card_or_account: str, mask_card_or_account: str) -> N
 
 
 @pytest.fixture
-def date():
+def date() -> str:
     return "2024-03-11T02:26:18.671407"
 
 
-def test_get_date(date):
+def test_get_date(date: str) -> str:
     assert get_date(date) == "11.03.2024"
 
 
 @pytest.fixture
-def date_zero():
+def date_zero() -> str:
     return ""
 
 
-def test_get_date_zero(date_zero):
+def test_get_date_zero(date_zero: str) -> str:
     assert get_date(date_zero) == "дата некорректна"
 
 
 @pytest.fixture
-def date_error():
+def date_error() -> str:
     return "11.03.202"
 
 
-def test_get_date_error(date_error):
+def test_get_date_error(date_error: str) -> str:
     assert get_date(date_error) == "дата некорректна"
 
 
 @pytest.fixture
-def date_error_():
+def date_error_() -> str:
     return "2024-03-11"
 
 
-def test_get_date_(date_error_):
+def test_get_date_(date_error_: str) -> str:
     assert get_date(date_error_) == "11.03.2024"
