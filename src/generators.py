@@ -44,5 +44,24 @@ transactions = [
 ]
 
 usd_transactions = filter_by_currency(transactions, "USD")
-for i in range(2):
+for i in range(len(transactions)):
     print(next(usd_transactions))
+
+
+def transaction_descriptions(transactions: list[dict]) -> str:
+    '''Генератор который принимает список словарей с транзакциями
+    и возвращает описание каждой операции по очереди.'''
+    for transaction in transactions:
+        # получаем описание
+        description = transaction.get('description')
+        if description:  # если есть описание
+            yield description
+
+
+descriptions = transaction_descriptions(transactions)
+for i in range(len(transactions)):  # Iterate based on number of transactions
+    print(next(descriptions))
+
+
+
+
