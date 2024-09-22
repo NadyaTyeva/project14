@@ -6,11 +6,10 @@ def filter_by_currency(transactions: list[dict], currency: str) -> Generator[dic
     и возвращает итератор, который поочередно выдает транзакции,
     где валюта операции соответствует заданной'''
 
-    # Проходим по каждой транзакции в списке
     for transaction in transactions:
-        # Проверяем, соответствует ли валюта транзакции заданной
         if transaction.get('operationAmount', {}).get('currency', {}).get('code') == currency:
-            yield transaction  # Возвращаем транзакцию, если валюта совпадает
+            yield transaction
+
 
 transactions = [
         {
@@ -101,9 +100,8 @@ def transaction_descriptions(transactions: list[dict]) -> Generator[str, None, N
     '''Генератор который принимает список словарей с транзакциями
     и возвращает описание каждой операции по очереди.'''
     for transaction in transactions:
-        # Получаем описание
         description = transaction.get('description')
-        if description:  # Если есть описание
+        if description:
             yield description
 
 
@@ -112,7 +110,7 @@ for _ in range(len(transactions)):
     print(next(descriptions))
 
 
-def card_number_generator(start: int, stop: int) -> Generator[int, None, None]:
+def card_number_generator(start: int, stop: int) -> Generator[str, None, None]:
     '''Генератор который выдает номера банковских карт в формате
 XXXX XXXX XXXX XXXX, где X — цифра номера карты'''
     for number in range(start, stop + 1):

@@ -1,6 +1,8 @@
+from typing import Generator, Any
+
 import pytest
-from typing import Generator
-from src.generators import (filter_by_currency, transaction_descriptions, card_number_generator)
+
+from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
 
 
 @pytest.fixture
@@ -83,15 +85,18 @@ def transactions_list() -> list[dict]:
         }
     ]
 
+
 @pytest.fixture
 def currency_usd() -> str:
     return 'USD'
+
 
 @pytest.fixture
 def currency_rub() -> str:
     return 'RUB'
 
-def test_filter_by_currency_usd(transactions_list: list[dict], currency_usd: str):
+
+def test_filter_by_currency_usd(transactions_list: list[dict], currency_usd: str) -> Any:
     usd_transactions = filter_by_currency(transactions_list, currency_usd)
     assert next(usd_transactions) == {
             "id": 939719570,
@@ -109,7 +114,8 @@ def test_filter_by_currency_usd(transactions_list: list[dict], currency_usd: str
             "to": "Счет 11776614605963066702"
         }
 
-def test_filter_by_currency_rub(transactions_list: list[dict], currency_rub: str):
+
+def test_filter_by_currency_rub(transactions_list: list[dict], currency_rub: str) -> Any:
     usd_transactions = filter_by_currency(transactions_list, currency_rub)
     assert next(usd_transactions) == {
             "id": 873106923,
@@ -128,7 +134,7 @@ def test_filter_by_currency_rub(transactions_list: list[dict], currency_rub: str
         }
 
 
-def test_transaction_descriptions(transactions_list: list[dict]) -> Generator[str, None, None]:
+def test_transaction_descriptions(transactions_list: list[dict]) -> Any:
     descriptions = transaction_descriptions(transactions_list)
     assert next(descriptions) == "Перевод организации"
     assert next(descriptions) == "Перевод со счета на счет"
@@ -141,11 +147,13 @@ def test_transaction_descriptions(transactions_list: list[dict]) -> Generator[st
 def start() -> int:
     return 1
 
+
 @pytest.fixture
 def stop() -> int:
     return 5
 
-def test_card_number_generator(start: int, stop: int) -> Generator[str, None, None]:
+
+def test_card_number_generator(start: int, stop: int) -> Any:
     generated_values = list(card_number_generator(start, stop))
     assert generated_values == [
         "0000 0000 0000 0001",
