@@ -1,18 +1,11 @@
+import pytest
 from typing import Generator
+from src.generators import (filter_by_currency, transaction_descriptions, card_number_generator)
 
 
-def filter_by_currency(transactions: list[dict], currency: str) -> Generator[dict, None, None]:
-    '''Функция принимает на вход список словарей, представляющих транзакции
-    и возвращает итератор, который поочередно выдает транзакции,
-    где валюта операции соответствует заданной'''
-
-    # Проходим по каждой транзакции в списке
-    for transaction in transactions:
-        # Проверяем, соответствует ли валюта транзакции заданной
-        if transaction.get('operationAmount', {}).get('currency', {}).get('code') == currency:
-            yield transaction  # Возвращаем транзакцию, если валюта совпадает
-
-transactions = [
+@pytest.fixture
+def transactions_list() -> list[dict]:
+    return [
         {
             "id": 939719570,
             "state": "EXECUTED",
@@ -90,35 +83,48 @@ transactions = [
         }
     ]
 
-currency = 'USD'
+@pytest.fixture
+def currency_usd() -> str:
+    return 'USD'
 
-usd_transactions = filter_by_currency(transactions, currency)
-for _ in range(3):
-    print(next(usd_transactions))
+@pytest.fixture
+def currency_rub() -> str:
+    return 'RUB'
+
+def test_filter_by_currency_usd(transactions_list: list[dict], currency_usd: str):
+    usd_transactions = filter_by_currency(transactions_list, currency_usd)
+    assert next(usd_transactions) == {
+            "id": 939719570,
+            "state": "EXECUTED",
+            "date": "2018-06-30T02:08:58.425572",
+            "operationAmount": {
+                "amount": "9824.07",
+                "currency": {
+                    "name": "USD",
+                    "code": "USD"
+                }
+            },
+            "description": "Перевод организации",
+            "from": "Счет 75106830613657916952",
+            "to": "Счет 11776614605963066702"
+        }
+
+def test_filter_by_currency_rub(transactions_list: list[dict], currency_rub: str):
+    usd_transactions = filter_by_currency(transactions_list, currency_rub)
+    assert next(usd_transactions) == {
+            "id": 873106923,
+            "state": "EXECUTED",
+            "date": "2019-03-23T01:09:46.296404",
+            "operationAmount": {
+                "amount": "43318.34",
+                "currency": {
+                    "name": "руб.",
+                    "code": "RUB"
+                }
+            },
+            "description": "Перевод со счета на счет",
+            "from": "Счет 44812258784861134719",
+            "to": "Счет 74489636417521191160"
+        }
 
 
-def transaction_descriptions(transactions: list[dict]) -> Generator[str, None, None]:
-    '''Генератор который принимает список словарей с транзакциями
-    и возвращает описание каждой операции по очереди.'''
-    for transaction in transactions:
-        # получаем описание
-        description = transaction.get('description')
-        if description:  # если есть описание
-            yield description
-
-
-descriptions = transaction_descriptions(transactions)
-for _ in range(len(transactions)):
-    print(next(descriptions))
-
-
-def card_number_generator(start: int, stop: int) -> Generator[str, None, None]:
-    '''Генератор который выдает номера банковских карт в формате
-XXXX XXXX XXXX XXXX, где X — цифра номера карты'''
-    for number in range(start, stop + 1):
-        yield (f"{number:016}"[:4] + " " + f"{number:016}"[4:8] + " "
-               + f"{number:016}"[8:12] + " " + f"{number:016}"[12:])
-
-
-for card_number in card_number_generator(1, 5):
-    print(card_number)
