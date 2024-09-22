@@ -128,3 +128,29 @@ def test_filter_by_currency_rub(transactions_list: list[dict], currency_rub: str
         }
 
 
+def test_transaction_descriptions(transactions_list: list[dict]) -> Generator[str, None, None]:
+    descriptions = transaction_descriptions(transactions_list)
+    assert next(descriptions) == "Перевод организации"
+    assert next(descriptions) == "Перевод со счета на счет"
+    assert next(descriptions) == "Перевод со счета на счет"
+    assert next(descriptions) == "Перевод с карты на карту"
+    assert next(descriptions) == "Перевод организации"
+
+
+@pytest.fixture
+def start() -> int:
+    return 1
+
+@pytest.fixture
+def stop() -> int:
+    return 5
+
+def test_card_number_generator(start: int, stop: int) -> Generator[str, None, None]:
+    generated_values = list(card_number_generator(start, stop))
+    assert generated_values == [
+        "0000 0000 0000 0001",
+        "0000 0000 0000 0002",
+        "0000 0000 0000 0003",
+        "0000 0000 0000 0004",
+        "0000 0000 0000 0005"
+    ]

@@ -101,9 +101,9 @@ def transaction_descriptions(transactions: list[dict]) -> Generator[str, None, N
     '''Генератор который принимает список словарей с транзакциями
     и возвращает описание каждой операции по очереди.'''
     for transaction in transactions:
-        # получаем описание
+        # Получаем описание
         description = transaction.get('description')
-        if description:  # если есть описание
+        if description:  # Если есть описание
             yield description
 
 
@@ -112,7 +112,7 @@ for _ in range(len(transactions)):
     print(next(descriptions))
 
 
-def card_number_generator(start: int, stop: int) -> Generator[str, None, None]:
+def card_number_generator(start: int, stop: int) -> Generator[int, None, None]:
     '''Генератор который выдает номера банковских карт в формате
 XXXX XXXX XXXX XXXX, где X — цифра номера карты'''
     for number in range(start, stop + 1):
