@@ -19,7 +19,7 @@
 
 ## Инструкция по установке
 1.Чтобы скачать репозиторий:
-* git clone [https://github.com/NadyaTyeva/project14
+* git clone https://github.com/NadyaTyeva/project14
 
 2.Установить не обходимые зависимости
 * pip install -r requirements.txt
