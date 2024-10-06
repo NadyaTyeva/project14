@@ -1,4 +1,5 @@
 import os
+
 import requests
 from dotenv import load_dotenv
 
@@ -8,8 +9,8 @@ def conversion_currency(transaction) -> float:
     from_curr = transaction["operationAmount"]["currency"]["code"]
     amount = float(transaction["operationAmount"]["amount"])
 
-    load_dotenv() # Загружаем переменные окружения из .env
-    access_key = os.getenv("API_KEY") # Получаем токен доступа из переменных окружения
+    load_dotenv()  # Загружаем переменные окружения из .env
+    access_key = os.getenv("API_KEY")  # Получаем токен доступа из переменных окружения
 
     headers = {"apikey": access_key}
     url = f"https://api.apilayer.com/exchangerates_data/convert?to=RUB&from={from_curr}&amount={amount}"
@@ -26,18 +27,19 @@ if __name__ == "__main__":
     print(
         conversion_currency(
             {
-                "id": 587085106,
+                "id": 41428829,
                 "state": "EXECUTED",
-                "date": "2018-03-23T10:45:06.972075",
+                "date": "2019-07-03T18:35:29.512364",
                 "operationAmount": {
-                    "amount": "48223.05",
+                    "amount": "8221.37",
                     "currency": {
-                        "name": "руб.",
-                        "code": "RUB"
+                        "name": "USD",
+                        "code": "USD"
                     }
                 },
-                "description": "Открытие вклада",
-                "to": "Счет 41421565395219882431"
+                "description": "Перевод организации",
+                "from": "MasterCard 7158300734726758",
+                "to": "Счет 35383033474447895560"
             }
         )
     )

@@ -9,15 +9,10 @@ PATH_TO_FILE = PATH_TO_PROJECT / "data" / "operations.json"
 
 
 logger = logging.getLogger("utils")
-logger.setLevel(logging.DEBUG)
-fileHandler = logging.FileHandler(PATH_TO_PROJECT / "logs" / "utils.log", encoding="UTF-8", mode="w")
-fileFormatter = logging.Formatter("%(asctime)s %(name)s %(levelname)s: %(message)s")
-fileHandler.setFormatter(fileFormatter)
-logger.addHandler(fileHandler)
 
 
 def get_transactions(file: str) -> Any:
-    """Функция, возвращающая данные из файла json"""
+    """ Функция, возвращающая данные из файла json """
     with open(file, encoding="UTF-8") as f:
         try:
             logger.info("Получаем данные json файла")
@@ -33,4 +28,3 @@ def get_transactions(file: str) -> Any:
 
 if __name__ == "__main__":
     print(get_transactions(os.path.abspath(PATH_TO_FILE)))
-
