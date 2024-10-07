@@ -17,6 +17,9 @@ def get_transactions(file: str) -> Any:
         try:
             logger.info("Получаем данные json файла")
             data = json.load(f)
+        except FileNotFoundError:
+            logger.error("Файл не найден")
+            return []
         except json.decoder.JSONDecodeError:
             logger.error("Ошибка! Некорректные данные json файла")
             return []
