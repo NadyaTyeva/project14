@@ -1,7 +1,5 @@
 import logging
-
 from typing import Union
-from utils import PATH_TO_PROJECT
 
 logger = logging.getLogger("masks")
 logger.setLevel(logging.INFO)
@@ -20,6 +18,7 @@ def get_mask_card_number(card_or_account: Union[str]) -> str:
         logger.error("Ошибка! Введен некорректный номер карты")
         return "Введите корректный номер карты"
 
+
 print(get_mask_card_number("1234567891234567"))
 
 
@@ -31,5 +30,6 @@ def get_mask_account(card_or_account_: Union[str]) -> str:
     else:
         logger.error("Ошибка! Введен некорректный номер счета")
         return "Введите корректный номер счета"
+
 
 print(get_mask_account("12345678912345678932"))
