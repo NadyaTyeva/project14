@@ -9,6 +9,7 @@ def financial_transactions_csv(filename):
     financial_transactions = reading_financial_transactions.to_dict(orient='records')
     return financial_transactions
 
+
 def transactions_from_excel(filename_excel):
     ''' Функция для считывания финансовых операций из excel-файла и выдачи списка словарей с транзакциями '''
     df = pd.read_excel(filename_excel)
@@ -20,8 +21,3 @@ def transactions_from_excel(filename_excel):
 if __name__ == "__main__":
     transaction = financial_transactions_csv(filename)
     print(transaction)
-
-
-
-
-

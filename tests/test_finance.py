@@ -1,8 +1,7 @@
-import json
 import pytest
 import pandas as pd
 from unittest.mock import patch
-from src.finance import financial_transactions_csv,transactions_from_excel
+from src.finance import financial_transactions_csv, transactions_from_excel
 
 
 @patch('src.finance.pd')
@@ -21,6 +20,7 @@ def test_financial_transactions_csv(mocked_pandas):
         {'date': '2023-01-02', 'amount': 200, 'description': 'Payment B'}
     ]
     mocked_pandas.read_csv.assert_called_once_with("transactions.csv")
+
 
 @patch('src.finance.pd')
 def test_transactions_from_excel(mocked_pandas):
