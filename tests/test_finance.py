@@ -20,6 +20,7 @@ def test_financial_transactions_csv(mocked_pandas):
         {'date': '2023-01-01', 'amount': 100, 'description': 'Payment A'},
         {'date': '2023-01-02', 'amount': 200, 'description': 'Payment B'}
     ]
+    mocked_pandas.read_csv.assert_called_once_with("transactions.csv")
 
 #
 #
