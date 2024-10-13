@@ -1,10 +1,10 @@
 import os
-
 import requests
 from dotenv import load_dotenv
+from typing import Any
 
 
-def conversion_currency(transaction) -> float:
+def conversion_currency(transaction: Any) -> Any:
     """Функция, конвертирующая сумму из иностранной валюты в рубли"""
     from_curr = transaction["operationAmount"]["currency"]["code"]
     amount = float(transaction["operationAmount"]["amount"])

@@ -1,4 +1,3 @@
-import pytest
 import pandas as pd
 from unittest.mock import patch
 from src.finance import financial_transactions_csv, transactions_from_excel

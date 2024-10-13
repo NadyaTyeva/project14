@@ -1,12 +1,10 @@
-from unittest.mock import patch
-from unittest.mock import Mock, patch
-from src.external_api import conversion_currency
 import requests
 import os
 import pytest
 from typing import Any
 from dotenv import load_dotenv
 from src.external_api import conversion_currency
+from unittest.mock import Mock, patch
 
 load_dotenv()
 access_key = os.getenv("API_KEY")
@@ -30,7 +28,6 @@ def test_conversion_currency_rub(mock_get: Any) -> Any:
         )
         == 31957.58
     )
-
 
 
 if __name__ == '__main__':
