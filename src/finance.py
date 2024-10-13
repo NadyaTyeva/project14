@@ -4,7 +4,7 @@ filename_excel = "transactions_excel.xlsx"
 
 
 def financial_transactions_csv(filename):
-    ''' Функция для считывания финансовых операций из csv-файла и выдачи списка словарей с транзакциями'''
+    ''' Функция для считывания финансовых операций из csv-файла и выдачи списка словарей с транзакциями '''
     reading_financial_transactions = pd.read_csv(filename)
     financial_transactions = reading_financial_transactions.to_dict(orient='records')
     return financial_transactions
