@@ -1,5 +1,5 @@
 import re
-from typing import List, Dict
+from collections import defaultdict
 
 list_of_dictionaries = [
         {
@@ -79,20 +79,24 @@ list_of_dictionaries = [
         }
     ]
 
-search_bar = input("Введите данные для поиска ")
+list_description = ["Перевод организации", "Перевод со счета на счет", "Перевод с карты на карту"]
 
+'''Напишите функцию, которая будет принимать список словарей с данными о банковских операциях
+ и список категорий операций, а возвращать словарь, в котором ключи — это названия категорий, а значения — 
+ это количество операций в каждой категории.
+Категории операций хранятся в поле description'''
 
-def dictionary_search(list_of_dictionaries: list[dict], search_bar: str) -> list[dict]:
-    ''' Функция, которая принимает список словарей с данными о банковских операциях и строку поиска,
-    а возвращать список словарей, у которых в описании есть данная строка. '''
-    pattern = re.compile(re.escape(search_bar), re.IGNORECASE)
-    filtered_operations = [op for op in list_of_dictionaries if pattern.search(op.get('description', '')) ]
-    return filtered_operations
+def sorting_by_description(list_of_dictionaries: list[dict], list_description: list[dict]) -> list[dict]:
+    result = {category: 0 for category in list_description}
+    for operation in list_of_dictionaries:
+        # Получаем описание операции
+        description = operation.get("description")
 
-
-
+        if description in result:
+            result[description] += 1
+    return result
 
 
 if __name__ == "__main__":
-    required_list = dictionary_search(list_of_dictionaries, search_bar)
+    required_list = sorting_by_description(list_of_dictionaries, list_description)
     print(required_list)
