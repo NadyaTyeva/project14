@@ -8,7 +8,7 @@ import pandas as pd
 from src.masks import get_mask_account, get_mask_card_number
 from src.processing import filter_by_state, sort_by_date
 from src.utils import PATH_TO_FILE, get_transactions, PATH_TO_PROJECT
-from src.finance import PATH_TO_CSV, PATH_TO_EXCEL
+from src.finance import PATH_TO_CSV, PATH_TO_EXCEL, financial_transactions_csv, transactions_from_excel
 
 
 def main():
@@ -28,10 +28,10 @@ def main():
         transactions_from_file = get_transactions(os.path.abspath(PATH_TO_FILE))
     elif user_input_file == "2":
         print("Для обработки выбран CSV-файл.")
-        transactions_from_file = read_csv(PATH_TO_CSV)
+        transactions_from_file = financial_transactions_csv(PATH_TO_CSV)
     elif user_input_file == "3":
         print("Для обработки выбран XLSX-файл.")
-        transactions_from_file = pd.read_excel(PATH_TO_EXCEL)
+        transactions_from_file = transactions_from_excel(PATH_TO_EXCEL)
     else:
         print("Введен некорректный номер.")
         return
@@ -137,4 +137,4 @@ def main():
 
 
 if __name__ == "__main__":
-    print(main())
+    main()
