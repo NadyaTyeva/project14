@@ -2,13 +2,14 @@ import os
 
 from _datetime import datetime
 
+from pandas import read_csv
+import pandas as pd
+
 from src.masks import get_mask_account, get_mask_card_number
 from src.processing import filter_by_state, sort_by_date
 from src.utils import PATH_TO_FILE, get_transactions, PATH_TO_PROJECT
+from src.finance import PATH_TO_CSV, PATH_TO_EXCEL
 
-PATH_TO_CSV = PATH_TO_PROJECT / "data" / "transactions.csv"
-PATH_TO_EXCEL = PATH_TO_PROJECT / "data" / "transactions_excel.xlsx"
-PATH_TO_FILE = PATH_TO_PROJECT / "data" / "operations.json"
 
 def main():
     """Отвечает за основную логику проекта с пользователем,
@@ -27,10 +28,10 @@ def main():
         transactions_from_file = get_transactions(os.path.abspath(PATH_TO_FILE))
     elif user_input_file == "2":
         print("Для обработки выбран CSV-файл.")
-        transactions_from_file = read_file_csv(PATH_TO_CSV)
+        transactions_from_file = read_csv(PATH_TO_CSV)
     elif user_input_file == "3":
         print("Для обработки выбран XLSX-файл.")
-        transactions_from_file = read_excel(PATH_TO_EXCEL)
+        transactions_from_file = pd.read_excel(PATH_TO_EXCEL)
     else:
         print("Введен некорректный номер.")
         return
@@ -53,12 +54,12 @@ def main():
     if user_date == "да":
         print("Отсортировать по возрастанию или по убыванию?")
         user_input_up_down = input("в порядке убывания / в порядке возрастания ").lower()
-        if user_input_up_down == "в порядке убывания" or user_input_up_down == "в порядке возрастания":
+        if user_input_up_down == "в порядке убывания":
             filter_transaction_date = sort_by_date(filter, user_input_up_down)
         else:
             print("Введен некорректный ответ.")
             return
-    elif user_input_date == "нет":
+    elif user_date == "нет":
         filter_transaction_date = filter
     else:
         print("Введен некорректный ответ.")
