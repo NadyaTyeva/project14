@@ -6,7 +6,15 @@ def filter_by_state(list_of_dictionaries: list[dict[str, Any]], state: str) -> l
     для ключа и возвращает новый список словарей,
     содержащий только те словари,
     у которых state соответствует указанному значению.'''
-    return [dictionary for dictionary in list_of_dictionaries if dictionary.get('state') == state]
+    filtered_data = []
+    for i in list_of_dictionaries:
+        if i.get("state") == state:
+            filtered_data.append(i)
+        else:
+            continue
+    return filtered_data
+    #return [dictionary for dictionary in list_of_dictionaries if dictionary.get('state') == state]
+
 
 
 def sort_by_date(list_of_dictionaries: list[dict[str, Any]], reversed: bool) -> list[dict[str, Any]]:

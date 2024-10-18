@@ -46,8 +46,10 @@ def main():
             print(f"Статус операции {user_state} недоступен.")
             continue
         print(f"Операции отфильтрованы по статусу {user_state}")
-        filter = filter_by_state(transactions_from_file, user_state)
+        filter_state = filter_by_state(transactions_from_file, user_state)
+        print(filter_state)
         break
+
 
     print("Отсортировать операции по дате? Да/Нет")
     user_date = input("Введите да или нет ").lower()
@@ -55,12 +57,16 @@ def main():
         print("Отсортировать по возрастанию или по убыванию?")
         user_input_up_down = input("в порядке убывания / в порядке возрастания ").lower()
         if user_input_up_down == "в порядке убывания":
-            filter_transaction_date = sort_by_date(filter, user_input_up_down)
+            reversed = True
+            filter_transaction_date = sort_by_date(filter_state, reversed)
+        elif user_input_up_down == "в порядке возрастания":
+            reversed = False
+            filter_transaction_date = sort_by_date(filter_state, reversed)
         else:
             print("Введен некорректный ответ.")
             return
     elif user_date == "нет":
-        filter_transaction_date = filter
+        filter_transaction_date = filter_state
     else:
         print("Введен некорректный ответ.")
         return
@@ -102,6 +108,7 @@ def main():
     print("Распечатываю итоговый список транзакций...")
     print(f"Всего банковских операций в выборке: {len(trans_word)}\n")
 
+
     for trans in trans_word:
         if trans.get("from") and trans.get("to"):
             date = trans.get("date", "")[:19]
@@ -137,4 +144,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+   main()
