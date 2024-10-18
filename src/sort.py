@@ -81,11 +81,6 @@ list_of_dictionaries = [
 
 list_description = ["Перевод организации", "Перевод со счета на счет", "Перевод с карты на карту"]
 
-'''Напишите функцию, которая будет принимать список словарей с данными о банковских операциях
- и список категорий операций, а возвращать словарь, в котором ключи — это названия категорий, а значения — 
- это количество операций в каждой категории.
-Категории операций хранятся в поле description'''
-
 def sorting_by_description(list_of_dictionaries: list[dict], list_description: list[dict]) -> list[dict]:
     result = {category: 0 for category in list_description}
     for operation in list_of_dictionaries:

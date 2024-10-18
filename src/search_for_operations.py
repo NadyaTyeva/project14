@@ -91,8 +91,6 @@ def dictionary_search(list_of_dictionaries: list[dict], search_bar: str) -> list
 
 
 
-
-
 if __name__ == "__main__":
     required_list = dictionary_search(list_of_dictionaries, search_bar)
     print(required_list)
