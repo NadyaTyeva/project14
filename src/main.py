@@ -48,8 +48,10 @@ def main():
             continue
         print(f"Операции отфильтрованы по статусу {user_state}")
         filter_state = filter_by_state(transactions_from_file, user_state)
-        print(filter_state)
         break
+
+
+
 
 
     print("Отсортировать операции по дате? Да/Нет")
@@ -124,7 +126,7 @@ def main():
             masked_card_to = mask_account_card(str(trans.get("to")))
             masked_acc_from = mask_account_card(str(trans.get("from")))
             masked_acc_to = mask_account_card(str(trans.get("to")))
-            if user_input_file == "1" or user_input_file == "2":
+            if user_input_file == "1":
                 amount = trans["operationAmount"]["amount"]
                 if "Счет" in trans.get("from", "") and "Счет" in trans.get("to", ""):
                     print(f"{correct_date} {description}")
