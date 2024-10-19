@@ -1,4 +1,4 @@
-dictionaries = [
+list_of_dictionaries = [
         {
             "id": 939719570,
             "state": "EXECUTED",
