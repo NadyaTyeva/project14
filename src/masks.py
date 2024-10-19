@@ -3,10 +3,10 @@ from typing import Union
 
 logger = logging.getLogger("masks")
 logger.setLevel(logging.INFO)
-fileHandler = logging.FileHandler('../logs/masks.log', mode="w", encoding="UTF-8")
+#fileHandler = logging.FileHandler('../logs/masks.log', mode="w", encoding="UTF-8")
 fileFormatter = logging.Formatter("%(asctime)s %(name)s %(levelname)s: %(message)s")
-fileHandler.setFormatter(fileFormatter)
-logger.addHandler(fileHandler)
+#fileHandler.setFormatter(fileFormatter)
+#logger.addHandler(fileHandler)
 
 
 def get_mask_card_number(card_or_account: Union[str]) -> str:

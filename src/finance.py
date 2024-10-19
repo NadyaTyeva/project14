@@ -1,7 +1,7 @@
 import csv
+from typing import Any
 
 import pandas as pd
-from typing import Any
 
 PATH_TO_CSV = "transactions.csv"
 PATH_TO_EXCEL = "transactions_excel.xlsx"

@@ -88,7 +88,7 @@ def test_dictionary_search(dictionaries):
     search_term = "Перевод"
     result = dictionary_search(dictionaries, search_term)
 
-    assert len(result) == 5  # Ожидаем 3 результата
+    assert len(result) == 5
     assert all("Перевод" in op["description"] for op in result)
 
 
