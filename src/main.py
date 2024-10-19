@@ -29,7 +29,6 @@ def main():
     elif user_input_file == "2":
         print("Для обработки выбран CSV-файл.")
         transactions_from_file = financial_transactions_csv(PATH_TO_CSV)
-        print(transactions_from_file)
     elif user_input_file == "3":
         print("Для обработки выбран XLSX-файл.")
         transactions_from_file = transactions_from_excel(PATH_TO_EXCEL)
@@ -49,9 +48,6 @@ def main():
         print(f"Операции отфильтрованы по статусу {user_state}")
         filter_state = filter_by_state(transactions_from_file, user_state)
         break
-
-
-
 
 
     print("Отсортировать операции по дате? Да/Нет")
