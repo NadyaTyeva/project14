@@ -1,7 +1,12 @@
-import re
+import pytest
+from unittest.mock import patch
+
+from src.search_for_operations import dictionary_search
 
 
-list_of_dictionaries = [
+@pytest.fixture
+def dictionaries():
+    return [
         {
             "id": 939719570,
             "state": "EXECUTED",
@@ -79,17 +84,14 @@ list_of_dictionaries = [
         }
     ]
 
-#search_bar = input("Введите данные для поиска ")
+def test_dictionary_search(dictionaries):
+    search_term = "Перевод"
+    result = dictionary_search(dictionaries, search_term)
+
+    assert len(result) == 5  # Ожидаем 3 результата
+    assert all("Перевод" in op["description"] for op in result)
 
 
-def dictionary_search(list_of_dictionaries: list[dict], search_bar: str) -> list[dict]:
-    ''' Функция, которая принимает список словарей с данными о банковских операциях и строку поиска,
-    а возвращать список словарей, у которых в описании есть данная строка. '''
-    pattern = re.compile(re.escape(search_bar), re.IGNORECASE)
-    filtered_operations = [op for op in list_of_dictionaries if pattern.search(op.get('description', ''))]
-    return filtered_operations
 
 
-if __name__ == "__main__":
-    required_list = dictionary_search(list_of_dictionaries, search_bar)
-    print(required_list)
+
