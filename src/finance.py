@@ -1,5 +1,6 @@
 import pandas as pd
 from typing import Any
+
 from src.utils import PATH_TO_PROJECT
 
 PATH_TO_CSV = "transactions.csv"
@@ -22,3 +23,4 @@ def transactions_from_excel(PATH_TO_EXCEL: Any) -> Any:
 if __name__ == "__main__":
     transaction = financial_transactions_csv(PATH_TO_CSV)
     print(transaction)
+

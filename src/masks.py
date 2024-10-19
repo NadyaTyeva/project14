@@ -16,7 +16,7 @@ def get_mask_card_number(card_or_account: Union[str]) -> str:
         return f"{str(card_or_account)[:4]} {str(card_or_account)[4:6]}** **** {str(card_or_account)[12:]}"
     else:
         logger.error("Ошибка! Введен некорректный номер карты")
-        return "Введите корректный номер карты"
+        return "123Введите корректный номер карты"
 
 
 # print(get_mask_card_number("1234567891234567"))
@@ -29,7 +29,7 @@ def get_mask_account(card_or_account_: Union[str]) -> str:
         return f"**{str(card_or_account_)[-4:]}"
     else:
         logger.error("Ошибка! Введен некорректный номер счета")
-        return "Введите корректный номер счета"
+        return "1234Введите корректный номер счета"
 
 
 # print(get_mask_account("12345678912345678932"))

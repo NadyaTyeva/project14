@@ -5,7 +5,7 @@ from _datetime import datetime
 from pandas import read_csv
 import pandas as pd
 
-from src.masks import get_mask_account, get_mask_card_number
+from src.widget import mask_account_card
 from src.processing import filter_by_state, sort_by_date
 from src.utils import PATH_TO_FILE, get_transactions, PATH_TO_PROJECT
 from src.finance import PATH_TO_CSV, PATH_TO_EXCEL, financial_transactions_csv, transactions_from_excel
@@ -29,6 +29,7 @@ def main():
     elif user_input_file == "2":
         print("Для обработки выбран CSV-файл.")
         transactions_from_file = financial_transactions_csv(PATH_TO_CSV)
+        print(transactions_from_file)
     elif user_input_file == "3":
         print("Для обработки выбран XLSX-файл.")
         transactions_from_file = transactions_from_excel(PATH_TO_EXCEL)
@@ -76,8 +77,12 @@ def main():
     if user_input_curr == "да":
         rub_trans = []
         for trans in filter_transaction_date:
-            if trans["operationAmount"]["currency"]["code"] == "RUB":
-                rub_trans.append(trans)
+            if user_input_file == "1" or user_input_file == "2":
+                if trans["operationAmount"]["currency"]["code"] == "RUB":
+                    rub_trans.append(trans)
+            else:
+                if trans["currency_code"] == "RUB":
+                    rub_trans.append(trans)
     elif user_input_curr == "нет":
         rub_trans = []
         for trans in filter_transaction_date:
@@ -115,32 +120,57 @@ def main():
             bad_date = datetime.strptime(date, "%Y-%m-%dT%H:%M:%S")
             correct_date = bad_date.strftime("%d.%m.%Y")
             description = trans.get("description", "")
-            masked_card_from = get_mask_card_number(str(trans.get("from")))
-            masked_card_to = get_mask_card_number(str(trans.get("to")))
-            masked_acc_from = get_mask_account(str(trans.get("from")))
-            masked_acc_to = get_mask_account(str(trans.get("to")))
-            amount = trans["operationAmount"]["amount"]
-            if "Счет" in trans.get("from", "") and "Счет" in trans.get("to", ""):
-                print(f"{correct_date} {description}")
-                print(f"Счет: {masked_acc_from} -> Счет: {masked_acc_to}")
-                if trans.get("code") == "RUB":
-                    print(f"Сумма: {amount} руб.\n")
+            masked_card_from = mask_account_card(str(trans.get("from")))
+            masked_card_to = mask_account_card(str(trans.get("to")))
+            masked_acc_from = mask_account_card(str(trans.get("from")))
+            masked_acc_to = mask_account_card(str(trans.get("to")))
+            if user_input_file == "1" or user_input_file == "2":
+                amount = trans["operationAmount"]["amount"]
+                if "Счет" in trans.get("from", "") and "Счет" in trans.get("to", ""):
+                    print(f"{correct_date} {description}")
+                    print(f"Счет: {masked_acc_from} -> Счет: {masked_acc_to}")
+                    if trans.get("code") == "RUB":
+                        print(f"Сумма: {amount} руб.\n")
+                    else:
+                        print(f'Сумма: {amount} {trans["operationAmount"]["currency"]["code"]}\n')
+                elif "Счет" in trans.get("to", ""):
+                    print(f"{correct_date} {description}")
+                    print(f"Счет: {masked_acc_to}")
+                    if trans.get("code") == "RUB":
+                        print(f"Сумма: {amount} руб.\n")
+                    else:
+                        print(f'Сумма: {amount} {trans["operationAmount"]["currency"]["code"]}\n')
                 else:
-                    print(f'Сумма: {amount} {trans["operationAmount"]["currency"]["code"]}\n')
-            elif "Счет" in trans.get("to", ""):
-                print(f"{correct_date} {description}")
-                print(f"Счет: {masked_acc_to}")
-                if trans.get("code") == "RUB":
-                    print(f"Сумма: {amount} руб.\n")
-                else:
-                    print(f'Сумма: {amount} {trans["operationAmount"]["currency"]["code"]}\n')
+                    print(f"{correct_date} {description}")
+                    print(f"Транзакция: {masked_card_from} -> {masked_card_to}")
+                    if trans.get("code") == "RUB":
+                        print(f"Сумма: {amount} руб.\n")
+                    else:
+                        print(f'Сумма: {amount} {trans["operationAmount"]["currency"]["code"]}\n')
             else:
-                print(f"{correct_date} {description}")
-                print(f"Транзакция: {masked_card_from} -> {masked_card_to}")
-                if trans.get("code") == "RUB":
-                    print(f"Сумма: {amount} руб.\n")
+                amount = trans["amount"]
+                if "Счет" in str(trans.get("from")) and "Счет" in str(trans.get("to")):
+                    print(f"{correct_date} {description}")
+                    print(f"Счет: {masked_acc_from} -> Счет: {masked_acc_to}")
+                    if trans.get("code") == "RUB":
+                        print(f"Сумма: {amount} руб.\n")
+                    else:
+                        print(f'Сумма: {amount} {trans["currency_code"]}\n')
+                elif "Счет" in trans.get("to", ""):
+                    print(f"{correct_date} {description}")
+                    print(f"Счет: {masked_acc_to}")
+                    if trans.get("code") == "RUB":
+                        print(f"Сумма: {amount} руб.\n")
+                    else:
+                        print(f'Сумма: {amount} {trans["currency_code"]}\n')
                 else:
-                    print(f'Сумма: {amount} {trans["operationAmount"]["currency"]["code"]}\n')
+                    print(f"{correct_date} {description}")
+                    print(f"Транзакция: {masked_card_from} -> {masked_card_to}")
+                    if trans.get("code") == "RUB":
+                        print(f"Сумма: {amount} руб.\n")
+                    else:
+                        print(f'Сумма: {amount} {trans["currency_code"]}\n')
+
 
 
 if __name__ == "__main__":
