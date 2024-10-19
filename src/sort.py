@@ -1,7 +1,4 @@
-import re
-from collections import defaultdict
-
-list_of_dictionaries = [
+dictionaries = [
         {
             "id": 939719570,
             "state": "EXECUTED",
@@ -80,6 +77,7 @@ list_of_dictionaries = [
     ]
 
 list_description = ["Перевод организации", "Перевод со счета на счет", "Перевод с карты на карту"]
+
 
 def sorting_by_description(list_of_dictionaries: list[dict], list_description: list[dict]) -> list[dict]:
     result = {category: 0 for category in list_description}

@@ -2,12 +2,9 @@ import os
 
 from _datetime import datetime
 
-from pandas import read_csv
-import pandas as pd
-
 from src.widget import mask_account_card
 from src.processing import filter_by_state, sort_by_date
-from src.utils import PATH_TO_FILE, get_transactions, PATH_TO_PROJECT
+from src.utils import PATH_TO_FILE, get_transactions
 from src.finance import PATH_TO_CSV, PATH_TO_EXCEL, financial_transactions_csv, transactions_from_excel
 
 
@@ -21,7 +18,6 @@ def main():
     2. Получить информацию о транзакциях из CSV-файла
     3. Получить информацию о транзакциях из XLSX-файла"""
     )
-
     user_input_file = input("Введите номер пункта: ")
     if user_input_file == "1":
         print("Для обработки выбран JSON-файл.")
@@ -48,8 +44,6 @@ def main():
         print(f"Операции отфильтрованы по статусу {user_state}")
         filter_state = filter_by_state(transactions_from_file, user_state)
         break
-
-
     print("Отсортировать операции по дате? Да/Нет")
     user_date = input("Введите да или нет ").lower()
     if user_date == "да":
@@ -111,7 +105,6 @@ def main():
     print("Распечатываю итоговый список транзакций...")
     print(f"Всего банковских операций в выборке: {len(trans_word)}\n")
 
-
     for trans in trans_word:
         if trans.get("from") and trans.get("to"):
             date = trans.get("date", "")[:19]
@@ -170,6 +163,5 @@ def main():
                         print(f'Сумма: {amount} {trans["currency_code"]}\n')
 
 
-
 if __name__ == "__main__":
-   main()
+    main()

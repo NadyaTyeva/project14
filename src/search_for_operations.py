@@ -1,5 +1,5 @@
 import re
-from typing import List, Dict
+
 
 list_of_dictionaries = [
         {
@@ -86,9 +86,8 @@ def dictionary_search(list_of_dictionaries: list[dict], search_bar: str) -> list
     ''' Функция, которая принимает список словарей с данными о банковских операциях и строку поиска,
     а возвращать список словарей, у которых в описании есть данная строка. '''
     pattern = re.compile(re.escape(search_bar), re.IGNORECASE)
-    filtered_operations = [op for op in list_of_dictionaries if pattern.search(op.get('description', '')) ]
+    filtered_operations = [op for op in list_of_dictionaries if pattern.search(op.get('description', ''))]
     return filtered_operations
-
 
 
 if __name__ == "__main__":

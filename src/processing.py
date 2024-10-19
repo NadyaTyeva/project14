@@ -13,8 +13,7 @@ def filter_by_state(list_of_dictionaries: list[dict[str, Any]], state: str) -> l
         else:
             continue
     return filtered_data
-    #return [dictionary for dictionary in list_of_dictionaries if dictionary.get('state') == state]
-
+    # return [dictionary for dictionary in list_of_dictionaries if dictionary.get('state') == state]
 
 
 def sort_by_date(list_of_dictionaries: list[dict[str, Any]], reversed: bool) -> list[dict[str, Any]]:
